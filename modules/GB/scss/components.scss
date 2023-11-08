@@ -1,0 +1,486 @@
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * goldblivion implementation : © Guillaume Benny bennygui@gmail.com
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ */
+
+.gb-component {
+    position: relative;
+    transition: transform 300ms, margin 300ms;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+
+    &.gb-card-blue {
+        width: calc(#{$card-blue-width}px * var(--gb-zoom));
+        height: calc(#{$card-blue-height}px * var(--gb-zoom));
+        border-radius: calc(45px * var(--gb-zoom));
+        box-shadow: 0px 0px 3px black;
+        image-rendering: -webkit-optimize-contrast;
+
+        .gb-ability-side-0 {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: calc(#{$card-blue-width * 0.45}px * var(--gb-zoom));
+            height: calc(#{$card-blue-height * 0.35}px * var(--gb-zoom));
+            border-bottom-left-radius: calc(45px * var(--gb-zoom));
+        }
+
+        .gb-ability-side-1 {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            width: calc(#{$card-blue-width * 0.45}px * var(--gb-zoom));
+            height: calc(#{$card-blue-height * 0.35}px * var(--gb-zoom));
+            border-bottom-right-radius: calc(45px * var(--gb-zoom));
+        }
+
+        .gb-ability-side-all {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: calc(#{$card-blue-height * 0.35}px * var(--gb-zoom));
+            border-bottom-left-radius: calc(45px * var(--gb-zoom));
+            border-bottom-right-radius: calc(45px * var(--gb-zoom));
+        }
+
+        .gb-hand-sort-container {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(#ffffff00 0%, #ffffff66 20%);
+            position: absolute;
+            bottom: -50px;
+            border-bottom-left-radius: calc(45px * var(--gb-zoom));
+            border-bottom-right-radius: calc(45px * var(--gb-zoom));
+            display: none;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: end;
+            font-size: 15px;
+            //-webkit-text-size-adjust: 100%;
+
+            >div {
+                cursor: pointer;
+                background-color: #144364;
+                color: white;
+                border-radius: 5px;
+                padding: 2px;
+                padding-left: 4px;
+                padding-right: 4px;
+                margin-bottom: 4px;
+            }
+
+            >:nth-child(1)::after {
+                content: "\21E4";
+            }
+
+            >:nth-child(2)::after {
+                content: "\21A4";
+            }
+
+            >:nth-child(3)::after {
+                content: "\21A6";
+            }
+
+            >:nth-child(4)::after {
+                content: "\21E5";
+            }
+        }
+    }
+
+    &.gb-card-red {
+        width: calc(#{$card-red-width}px * var(--gb-zoom));
+        height: calc(#{$card-red-height}px * var(--gb-zoom));
+        border-radius: calc(35px * var(--gb-zoom));
+        box-shadow: 0px 0px 3px black;
+        image-rendering: -webkit-optimize-contrast;
+
+        &.bx-clickable.bx-border {
+            border: 2px solid #ffdd00 !important;
+
+            @media (max-width: 480px) {
+                border: 4px solid #ffdd00 !important;
+            }
+        }
+
+        .gb-ability-side-0 {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: calc(#{$card-red-width * 0.45}px * var(--gb-zoom));
+            height: calc(#{$card-red-height * 0.3}px * var(--gb-zoom));
+            border-bottom-left-radius: calc(35px * var(--gb-zoom));
+
+            &.bx-clickable.bx-border {
+                border: 2px solid #ffdd00 !important;
+
+                @media (max-width: 480px) {
+                    border: 4px solid #ffdd00 !important;
+                }
+            }
+        }
+
+        .gb-ability-side-1 {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            width: calc(#{$card-red-width * 0.45}px * var(--gb-zoom));
+            height: calc(#{$card-red-height * 0.3}px * var(--gb-zoom));
+            border-bottom-right-radius: calc(35px * var(--gb-zoom));
+
+            &.bx-clickable.bx-border {
+                border: 2px solid #ffdd00 !important;
+
+                @media (max-width: 480px) {
+                    border: 4px solid #ffdd00 !important;
+                }
+            }
+        }
+
+        .gb-ability-side-all {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: calc(#{$card-red-height * 0.3}px * var(--gb-zoom));
+            border-bottom-left-radius: calc(35px * var(--gb-zoom));
+            border-bottom-right-radius: calc(35px * var(--gb-zoom));
+
+            &.bx-clickable.bx-border {
+                border: 2px solid #ffdd00 !important;
+
+                @media (max-width: 480px) {
+                    border: 4px solid #ffdd00 !important;
+                }
+            }
+        }
+    }
+
+    &.gb-village {
+        width: calc(#{$village-width}px * var(--gb-zoom));
+        height: calc(#{$village-height}px * var(--gb-zoom));
+        border-radius: calc(35px * var(--gb-zoom));
+        box-shadow: 0px 0px 3px black;
+        image-rendering: -webkit-optimize-contrast;
+        background-size: calc(#{$village-width * 4}px * var(--gb-zoom)) calc(#{$village-height * 1}px * var(--gb-zoom));
+    }
+
+    &.gb-magic {
+        width: calc(#{$magic-width}px * var(--gb-zoom));
+        height: calc(#{$magic-height}px * var(--gb-zoom));
+        border-radius: calc(95px * var(--gb-zoom));
+        box-shadow: 0px 0px 3px black;
+        image-rendering: -webkit-optimize-contrast;
+        background-size: calc(#{$magic-width * 5}px * var(--gb-zoom)) calc(#{$magic-height * 2}px * var(--gb-zoom));
+    }
+
+    &.gb-enemy-container {
+        position: relative;
+        width: calc(#{$enemy-width}px * var(--gb-zoom));
+        height: calc(#{$enemy-height}px * var(--gb-zoom));
+    }
+
+    &.gb-enemy {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: calc(#{$enemy-width}px * var(--gb-zoom));
+        height: calc(#{$enemy-height}px * var(--gb-zoom));
+        image-rendering: -webkit-optimize-contrast;
+        background-size: calc(#{$enemy-width * 6}px * var(--gb-zoom)) calc(#{$enemy-height * 2}px * var(--gb-zoom));
+    }
+}
+
+.gb-hand-sort-hidden .gb-hand-sort-container {
+    display: none !important;
+}
+
+.gb-component-used {
+    transform: rotate(15deg);
+    margin-left: 10%;
+}
+
+.gb-component-ghost {
+    opacity: 0.2;
+}
+
+.gb-component-help {
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    background-color: #144364;
+    border: 1px solid #08283e;
+    border-radius: 5px;
+    cursor: pointer;
+    vertical-align: middle;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 12px;
+    box-shadow: 0 1px 0 #000;
+    //-webkit-text-size-adjust: 100%;
+
+    &::after {
+        content: "?";
+    }
+
+    .gb-enemy-container & {
+        bottom: 0px;
+        right: 0px;
+    }
+
+    .gb-component[data-type-id="9999"] &,
+    .gb-component[data-type-id="9998"] &,
+    .gb-component[data-type-id="9997"] &,
+    .gb-component[data-type-id="9996"] &,
+    .gb-component[data-type-id="9995"] &,
+    .gb-component[data-type-id="9994"] & {
+        display: none;
+    }
+
+    .gb-component-help-hidden & {
+        display: none;
+    }
+
+    .gb-component-help-hidden .gb-development-help & {
+        display: block;
+    }
+
+    #logs &,
+    #chatbar &,
+    #popin_gb-combat-status-dialog_contents &,
+    .bx-moving & {
+        display: none;
+    }
+}
+
+.gb-component-help-hidden .gb-component-help.gb-player-deck-red-help,
+.gb-component-help-hidden .gb-component-help.gb-player-deck-blue-help {
+    display: block;
+}
+
+// Blue cards
+
+@mixin mixin-gb-blue-card($image-file, $nb-row, $nb-col, $x, $y, $type-id) {
+    .gb-component.gb-card-blue[data-type-id="#{$type-id}"] {
+        background-image: url('img/card/#{$image-file}.jpg');
+        background-position-x: calc(#{-1 * $x * $card-blue-width}px * var(--gb-zoom));
+        background-position-y: calc(#{-1 * $y * $card-blue-height}px * var(--gb-zoom));
+        background-size: calc(#{$card-blue-width * $nb-col}px * var(--gb-zoom)) calc(#{$card-blue-height * $nb-row}px * var(--gb-zoom));
+    }
+}
+
+// Noble
+$id: 0;
+
+@for $x from 0 through 4 {
+    @include mixin-gb-blue-card('blue_noble', 1, 5, $x, 0, 1200 + $id);
+    $id: $id + 1;
+}
+
+// Humanoid
+$id: 0;
+
+@for $y from 0 through 4 {
+    @for $x from 0 through 4 {
+        @include mixin-gb-blue-card('blue_humanoid', 5, 5, $x, $y, 1400 + $id);
+        $id: $id + 1;
+    }
+}
+
+// Buildings
+$id: 0;
+
+@for $y from 0 through 2 {
+    @for $x from 0 through 4 {
+        @include mixin-gb-blue-card('blue_building', 2, 5, $x, $y, 1300 + $id);
+        $id: $id + 1;
+    }
+}
+
+// Blue Back
+@include mixin-gb-blue-card('blue_building', 2, 5, 3, 1, 9999);
+
+// Starting: Blue
+@include mixin-gb-blue-card('blue_starting', 3, 5, 0, 0, 1100);
+@include mixin-gb-blue-card('blue_starting', 3, 5, 1, 0, 1101);
+@include mixin-gb-blue-card('blue_starting', 3, 5, 2, 0, 1102);
+// Starting: Yellow
+@include mixin-gb-blue-card('blue_starting', 3, 5, 3, 0, 1110);
+@include mixin-gb-blue-card('blue_starting', 3, 5, 4, 0, 1111);
+@include mixin-gb-blue-card('blue_starting', 3, 5, 0, 1, 1112);
+// Starting: Red
+@include mixin-gb-blue-card('blue_starting', 3, 5, 1, 1, 1120);
+@include mixin-gb-blue-card('blue_starting', 3, 5, 2, 1, 1121);
+@include mixin-gb-blue-card('blue_starting', 3, 5, 3, 1, 1122);
+// Starting: Green
+@include mixin-gb-blue-card('blue_starting', 3, 5, 4, 1, 1130);
+@include mixin-gb-blue-card('blue_starting', 3, 5, 0, 2, 1131);
+@include mixin-gb-blue-card('blue_starting', 3, 5, 1, 2, 1132);
+
+// Red cards
+
+@mixin mixin-gb-red-card($image-file, $nb-row, $nb-col, $x, $y, $type-id) {
+    .gb-component.gb-card-red[data-type-id="#{$type-id}"] {
+        background-image: url('img/card/#{$image-file}.jpg');
+        background-position-x: calc(#{-1 * $x * $card-red-width}px * var(--gb-zoom));
+        background-position-y: calc(#{-1 * $y * $card-red-height}px * var(--gb-zoom));
+        background-size: calc(#{$card-red-width * $nb-col}px * var(--gb-zoom)) calc(#{$card-red-height * $nb-row}px * var(--gb-zoom));
+    }
+}
+
+// Red Deck
+$id: 0;
+
+@for $y from 0 through 2 {
+    @for $x from 0 through 4 {
+        @include mixin-gb-red-card('red_deck', 2, 5, $x, $y, 2200 + $id);
+        $id: $id + 1;
+    }
+}
+
+// Red Back
+@include mixin-gb-red-card('red_deck', 2, 5, 3, 1, 9998);
+@include mixin-gb-red-card('red_deck', 2, 5, 4, 1, 9997);
+
+// Starting: Blue
+@include mixin-gb-red-card('red_starting', 2, 5, 0, 0, 2100);
+@include mixin-gb-red-card('red_starting', 2, 5, 1, 0, 2101);
+// Starting: Yellow
+@include mixin-gb-red-card('red_starting', 2, 5, 2, 0, 2110);
+@include mixin-gb-red-card('red_starting', 2, 5, 3, 0, 2111);
+// Starting: Red
+@include mixin-gb-red-card('red_starting', 2, 5, 4, 0, 2120);
+@include mixin-gb-red-card('red_starting', 2, 5, 0, 1, 2121);
+// Starting: Green
+@include mixin-gb-red-card('red_starting', 2, 5, 1, 1, 2130);
+@include mixin-gb-red-card('red_starting', 2, 5, 2, 1, 2131);
+
+// Tokens
+
+@mixin mixin-gb-token($token-name, $img-width, $img-height, $x, $y, $type-id) {
+    .gb-component.gb-#{$token-name}[data-type-id="#{$type-id}"] {
+        background-image: url('img/token/#{$token-name}.png');
+        background-position-x: calc(#{-1 * $x * $img-width}px * var(--gb-zoom));
+        background-position-y: calc(#{-1 * $y * $img-height}px * var(--gb-zoom));
+    }
+}
+
+// Village
+@include mixin-gb-token('village', $village-width, $village-height, 0, 0, 3000);
+@include mixin-gb-token('village', $village-width, $village-height, 1, 0, 3001);
+@include mixin-gb-token('village', $village-width, $village-height, 2, 0, 3010);
+@include mixin-gb-token('village', $village-width, $village-height, 3, 0, 3011);
+
+// Magic
+@include mixin-gb-token('magic', $magic-width, $magic-height, 0, 0, 4000);
+@include mixin-gb-token('magic', $magic-width, $magic-height, 1, 0, 4001);
+@include mixin-gb-token('magic', $magic-width, $magic-height, 2, 0, 4002);
+@include mixin-gb-token('magic', $magic-width, $magic-height, 3, 0, 4003);
+@include mixin-gb-token('magic', $magic-width, $magic-height, 4, 0, 4004);
+@include mixin-gb-token('magic', $magic-width, $magic-height, 0, 1, 4005);
+@include mixin-gb-token('magic', $magic-width, $magic-height, 1, 1, 4006);
+@include mixin-gb-token('magic', $magic-width, $magic-height, 2, 1, 4007);
+// Magic Back
+@include mixin-gb-token('magic', $magic-width, $magic-height, 3, 1, 9996);
+
+// Enemy Forest
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 0, 0, 5100);
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 1, 0, 5101);
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 2, 0, 5102);
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 3, 0, 5103);
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 4, 0, 5104);
+// Back
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 5, 0, 9995);
+
+// Enemy Mountain
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 0, 1, 5200);
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 1, 1, 5201);
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 2, 1, 5202);
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 3, 1, 5203);
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 4, 1, 5204);
+// Back
+@include mixin-gb-token('enemy', $enemy-width, $enemy-height, 5, 1, 9994);
+
+// Border and shadow
+.gb-component.gb-enemy-container.bx-clickable.bx-border {
+    border: 0px !important;
+}
+
+.gb-component.gb-enemy-container.bx-selected {
+    border: 0px !important;
+    box-shadow: none !important;
+}
+
+.gb-enemy-border {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: calc(#{$enemy-width}px * var(--gb-zoom));
+    height: calc(#{$enemy-height}px * var(--gb-zoom));
+    image-rendering: -webkit-optimize-contrast;
+    background-image: url('img/token/enemy_border.png');
+    background-size: calc(#{$enemy-width}px * var(--gb-zoom)) calc(#{$enemy-height}px * var(--gb-zoom));
+    display: none;
+
+    .bx-clickable & {
+        display: block;
+    }
+
+    .bx-selected & {
+        display: block;
+        background-image: url('img/token/enemy_selected.png');
+    }
+}
+
+.gb-enemy-shadow {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: calc(#{$enemy-width}px * var(--gb-zoom));
+    height: calc(#{$enemy-height}px * var(--gb-zoom));
+    image-rendering: -webkit-optimize-contrast;
+    background-image: url('img/token/enemy_shadow.png');
+    background-size: calc(#{$enemy-width}px * var(--gb-zoom)) calc(#{$enemy-height}px * var(--gb-zoom));
+
+    .gb-component[data-type-id="5300"] & {
+        display: none;
+    }
+}
+
+$enemy-draw-scale: 0.5;
+
+.gb-enemy-draw {
+    position: relative;
+    top: calc(-65px * var(--gb-zoom));
+    width: calc(150px * var(--gb-zoom) * #{$enemy-draw-scale});
+    height: calc(176px * var(--gb-zoom) * #{$enemy-draw-scale});
+    image-rendering: -webkit-optimize-contrast;
+    background-image: url('img/token/enemy_draw.png');
+    background-size: calc(150px * var(--gb-zoom) * #{$enemy-draw-scale}) calc(176px * var(--gb-zoom) * #{$enemy-draw-scale});
+}
+
+.gb-enemy-draw-count {
+    position: relative;
+    top: calc(10px * var(--gb-zoom) * #{$enemy-draw-scale});
+    left: calc(66px * var(--gb-zoom) * #{$enemy-draw-scale});
+    color: black;
+    font-size: calc(100px * var(--gb-zoom) * #{$enemy-draw-scale});
+    //-webkit-text-size-adjust: 100%;
+}
+
+.gb-enemy-click-target {
+    position: absolute;
+    top: calc(#{$enemy-width/6}px * var(--gb-zoom));
+    left: calc(#{$enemy-height/5.5}px * var(--gb-zoom));
+    width: calc(#{$enemy-width/1.7}px * var(--gb-zoom));
+    height: calc(#{$enemy-height/1.5}px * var(--gb-zoom));
+}
