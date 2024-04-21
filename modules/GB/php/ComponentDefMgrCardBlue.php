@@ -65,7 +65,7 @@ trait ComponentDefMgrCardBlue
     {
         return [
             (new ComponentDefBuilder())->cardBlue(1200)->name(clienttranslate("Ariane"))
-                ->desc(clienttranslate('Destroy a card (GOLDblivion or Combat) and Gain 2 nuggets.'))
+                ->desc(clienttranslate('Destroy a card from the markets (GOLDblivion or Combat) and Gain 2 nuggets.'))
                 ->subCategory(COMPONENT_SUB_CATEGORY_ID_NOBLE)
                 ->icon(COMPONENT_ICON_ID_HUMAN)
                 ->ability(
@@ -120,7 +120,7 @@ trait ComponentDefMgrCardBlue
                 )
                 ->build(),
             (new ComponentDefBuilder())->cardBlue(1401)->name(clienttranslate("Assassins"))
-                ->desc(clienttranslate('Destroy a card (GOLDblivion or Combat) and Gain 1 material.'))
+                ->desc(clienttranslate('Destroy a card from the markets (GOLDblivion or Combat) and Gain 1 material.'))
                 ->setupCount(2)
                 ->subCategory(COMPONENT_SUB_CATEGORY_ID_DECK)
                 ->cost(RESOURCE_TYPE_ID_NUGGET, 6)
@@ -235,7 +235,7 @@ trait ComponentDefMgrCardBlue
                 )
                 ->build(),
             (new ComponentDefBuilder())->cardBlue(1410)->name(clienttranslate("Bruno"))
-                ->desc(clienttranslate('Destroy a card (GOLDblivion or Combat) and Gain 3 nuggets.'))
+                ->desc(clienttranslate('Destroy a card from the markets (GOLDblivion or Combat) and Gain 3 nuggets OR Draw 1 GOLDblivion card from your deck.'))
                 ->setupCount(2)
                 ->subCategory(COMPONENT_SUB_CATEGORY_ID_DECK)
                 ->cost(RESOURCE_TYPE_ID_NUGGET, 2)
@@ -271,7 +271,7 @@ trait ComponentDefMgrCardBlue
                 )
                 ->build(),
             (new ComponentDefBuilder())->cardBlue(1413)->name(clienttranslate("Vlad"))
-                ->desc(clienttranslate('Destroy 2 cards (GOLDblivion or Combat) and Gain 2 nuggets per Enemy you defeated.'))
+                ->desc(clienttranslate('Destroy 2 cards from the markets (GOLDblivion or Combat) and Gain 2 nuggets per Enemy you defeated.'))
                 ->setupCount(2)
                 ->subCategory(COMPONENT_SUB_CATEGORY_ID_DECK)
                 ->cost(RESOURCE_TYPE_ID_NUGGET, 7)

@@ -163,7 +163,7 @@ class ChooseActivationSide extends \BX\Action\BaseActionCommand
                 array_shift($allFunctions);
                 foreach ($allFunctions as $f) {
                     if ($f->getComponentId() == $c->componentId) {
-                        throw new \BgaUserException($notifier->translate(clienttranslate('You cannot reactivate a card that was already reactivated')));
+                        throw new \BgaUserException($notifier->_('You cannot reactivate a card that was already reactivated'));
                     }
                 }
                 // All components have only 1 interactive ability or 2 of the same ability
@@ -256,7 +256,7 @@ class PayAbility extends \BX\Action\BaseActionCommand
         $nuggetPay = 0;
         $materialPay = 0;
         if (!$ability->payCost($ps->nuggetCount, $ps->materialCount, $nuggetPay, $materialPay)) {
-            throw new \BgaUserException($notifier->translate(clienttranslate('You do not have enough to pay')));
+            throw new \BgaUserException($notifier->_('You do not have enough to pay'));
         }
         if ($nuggetPay != 0) {
             $notifier->notify(

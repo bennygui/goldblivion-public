@@ -85,6 +85,19 @@ body {
     }
 }
 
+// Override pill and score font size
+.player_score_value {
+    font-size: 1.2rem;
+}
+
+.bx-pill {
+    .bx-pill-counter {
+        font-size: 1.2rem;
+        min-width: 1rem;
+        text-align: center;
+    }
+}
+
 #generalactions {
     .gb-sparkle {
         display: none;

@@ -273,7 +273,11 @@ trait BaseGainTrait
         }
         $componentMgr = self::getMgr('component');
         if ($forSoloNoble) {
-            return ($this->count * count($componentMgr->getCardsInSoloBoardIcon($this->conditionIcon)));
+            $iconCount = 0;
+            foreach ($componentMgr->getCardsInSoloBoardIcon($this->conditionIcon) as $card) {
+                $iconCount += $card->def()->countIcon($this->conditionIcon);
+            }
+            return ($this->count * $iconCount);
         } else {
             return ($this->count * $componentMgr->countPlayerIcon($this->playerId, $this->conditionIcon));
         }

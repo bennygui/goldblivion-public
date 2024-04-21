@@ -194,9 +194,9 @@ class goldblivion extends Table
         return $this->getCurrentPlayerId();
     }
 
-    public static function translate(string $text)
+    public function _($text)
     {
-        return self::_($text);
+        return parent::_($text);
     }
 
     public function getPlayerIdArray()

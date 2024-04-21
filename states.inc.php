@@ -75,6 +75,7 @@ $machinestates = [
         "action" => 'stRoundChooseCardDevelop',
         "possibleactions" => [
             'playerRoundChooseCardDevelop',
+            'playerRoundChooseCardDevelopSkip',
             'playerRoundChooseCardDevelopUndo',
         ],
         "transitions" => [

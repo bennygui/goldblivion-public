@@ -202,13 +202,19 @@ class DrawRedCombatCard extends \BX\Action\BaseActionCommandNoUndo
     use \GB\Actions\Traits\ComponentQueryTrait;
     use \GB\Actions\Traits\ComponentNotificationTrait;
 
-    public function __construct(int $playerId)
+    private $mustDrawNow;
+
+    public function __construct(int $playerId, bool $mustDrawNow)
     {
         parent::__construct($playerId);
+        $this->mustDrawNow = $mustDrawNow;
     }
 
     public function do(\BX\Action\BaseActionCommandNotifier $notifier)
     {
+        if ($this->mustDrawNow === null) {
+            $this->mustDrawNow = false;
+        }
         $playerStateMgr = self::getMgr('player_state');
         $ps = $playerStateMgr->getByPlayerId($this->playerId);
 
@@ -250,7 +256,7 @@ class DrawRedCombatCard extends \BX\Action\BaseActionCommandNoUndo
             && !$card->def()->hasAbilityChoice()
             && !$card->def()->hasReactivateAbility()
         ) {
-            $action = new CombatInstantGain($this->playerId, $card->componentId, 0, false);
+            $action = new CombatInstantGain($this->playerId, $card->componentId, 0, $this->mustDrawNow);
             $action->do($notifier);
 
             // Mark used
@@ -674,7 +680,7 @@ class CombatInstantGain extends \BX\Action\BaseActionCommand
                         && $componentMgr->getTopCardFromRedPlayerDeck($this->playerId) !== null
                     ) {
                         $this->didDraw = true;
-                        $action = new DrawRedCombatCard($this->playerId);
+                        $action = new DrawRedCombatCard($this->playerId, $this->mustDrawNow);
                         $action->do($notifier);
                     }
                     break;
@@ -707,7 +713,7 @@ class CombatInstantGain extends \BX\Action\BaseActionCommand
     public function undo(\BX\Action\BaseActionCommandNotifier $notifier)
     {
         if ($this->didDraw) {
-            throw new \BgaUserException($notifier->translate(clienttranslate('This action cannot be undone since you have drawn a card')));
+            throw new \BgaUserException($notifier->_('This action cannot be undone since you have drawn a card'));
         }
         $this->notifyUndoCounts($notifier);
         foreach ($this->undoActions as $action) {

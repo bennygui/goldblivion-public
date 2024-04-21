@@ -41,7 +41,7 @@ trait ComponentDefMgrVillage
                 )
                 ->build(),
             (new ComponentDefBuilder())->village(3010)->name(clienttranslate("Nugget Village, Card Side"))
-                ->desc(clienttranslate('Pay 2 nuggets to destroy 2 cards (GOLDblivion or Combat). The other side is: Pay 2 nuggets to destroy 1 card (GOLDblivion or Combat) and Roll a dice.'))
+                ->desc(clienttranslate('Pay 2 nuggets to destroy 2 cards from the markets (GOLDblivion or Combat). The other side is: Pay 2 nuggets to destroy 1 card from the markets (GOLDblivion or Combat) and Roll a dice.'))
                 ->subCategory(COMPONENT_SUB_CATEGORY_ID_LEFT)
                 ->ability(
                     (new ComponentAbilityBuilder())
@@ -51,7 +51,7 @@ trait ComponentDefMgrVillage
                 )
                 ->build(),
             (new ComponentDefBuilder())->village(3011)->name(clienttranslate("Nugget Village, Dice Side"))
-                ->desc(clienttranslate('Pay 2 nuggets to destroy 1 card (GOLDblivion or Combat) and Roll a dice. The other side is: Pay 2 nuggets to destroy 2 cards (GOLDblivion or Combat).'))
+                ->desc(clienttranslate('Pay 2 nuggets to destroy 1 card from the markets (GOLDblivion or Combat) and Roll a dice. The other side is: Pay 2 nuggets to destroy 2 cards from the markets (GOLDblivion or Combat).'))
                 ->subCategory(COMPONENT_SUB_CATEGORY_ID_LEFT)
                 ->ability(
                     (new ComponentAbilityBuilder())

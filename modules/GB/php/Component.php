@@ -529,7 +529,7 @@ class ComponentCountsUI extends \BX\UI\UISerializable
                 } else if ($c->locationId == COMPONENT_LOCATION_ID_PLAYER_HAND) {
                     ++$this->handCounts[$c->playerId];
                 } else if ($c->locationId == COMPONENT_LOCATION_ID_SOLO_BOARD) {
-                    ++$this->soloIconCounts[$c->locationPrimaryOrder];
+                    $this->soloIconCounts[$c->locationPrimaryOrder] += $c->def()->countIcon($c->locationPrimaryOrder);
                 } else if (
                     $c->locationId == COMPONENT_LOCATION_ID_PLAYER_PLAY_AREA
                     || $c->locationId == COMPONENT_LOCATION_ID_PLAYER_PLAY_AREA_BUILDING

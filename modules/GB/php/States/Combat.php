@@ -61,7 +61,7 @@ trait GameStatesTrait
             $playerStateMgr->getPlayerCombatDraw($playerId) > 0
             && $componentMgr->getTopCardFromRedPlayerDeck($playerId) !== null
         ) {
-            $creator->add(new \GB\Actions\Combat\DrawRedCombatCard($playerId));
+            $creator->add(new \GB\Actions\Combat\DrawRedCombatCard($playerId, false));
         }
 
         if (count($componentMgr->playerUnusedCombatCard($playerId)) > 0) {
@@ -204,7 +204,7 @@ trait GameStatesTrait
         $componentMgr = \BX\Action\ActionRowMgrRegister::getMgr('component');
         foreach ($componentMgr->playerUnusedCombatCard($playerId) as $card) {
             if ($card->def()->hasAbilityChoice()) {
-                throw new \BgaUserException(self::_(clienttranslate('You must choose a side to activate for your combat cards')));
+                throw new \BgaUserException($this->_('You must choose a side to activate for your combat cards'));
             }
         }
 

@@ -59,7 +59,11 @@ trait GameStatesTrait
         \BX\Action\ActionCommandMgr::clear();
         $componentMgr = \BX\Action\ActionRowMgrRegister::getMgr('component');
         foreach ($this->getPlayerIdArray() as $playerId) {
-            $ret['_private'][$playerId]['componentIds'] = array_keys($componentMgr->getCardsInPlayerHand($playerId));
+            $cardIds = array_keys($componentMgr->getCardsInPlayerHand($playerId));
+            $ret['_private'][$playerId]['componentIds'] = $cardIds;
+            if (count($cardIds) == 0) {
+                $ret['_private'][$playerId]['canSkip'] = true;
+            }
         }
         return $ret;
     }
@@ -77,6 +81,27 @@ trait GameStatesTrait
 
         $this->gamestate->setPlayerNonMultiactive($playerId, '');
     }
+    
+    public function playerRoundChooseCardDevelopSkip()
+    {
+        \BX\Lock\Locker::lock();
+        $this->checkAction("playerRoundChooseCardDevelopSkip");
+        $playerId = $this->getCurrentPlayerId();
+        
+        \BX\Action\ActionCommandMgr::clear();
+        $componentMgr = \BX\Action\ActionRowMgrRegister::getMgr('component');
+        if (count($componentMgr->getCardsInPlayerHand($playerId)) != 0) {
+            throw new \BgaSystemException("Player $playerId cannot skip develop, they have cards in hand");
+        }
+
+        \BX\Action\ActionCommandMgr::apply($playerId);
+
+        $creator = new \BX\Action\ActionCommandCreator($playerId);
+        $creator->add(new \BX\Action\SendMessage($playerId, clienttranslate('${player_name} does not have any cards and skips development')));
+        $creator->save();
+
+        $this->gamestate->setPlayerNonMultiactive($playerId, '');
+    }
 
     public function playerRoundChooseCardDevelopUndo()
     {
@@ -84,7 +109,7 @@ trait GameStatesTrait
         $this->gamestate->checkPossibleAction("playerRoundChooseCardDevelopUndo");
         $playerId = $this->getCurrentPlayerId();
         if (array_search($playerId, $this->gamestate->getActivePlayerList()) !== false) {
-            throw new \BgaUserException(self::_(clienttranslate('You cannot change your development choice right now')));
+            throw new \BgaUserException($this->_('You cannot change your development choice right now'));
         }
         \BX\Action\ActionCommandMgr::undoAll($playerId, true);
 
@@ -144,15 +169,6 @@ trait GameStatesTrait
         $gameStateMgr = \BX\Action\ActionRowMgrRegister::getMgr('game_state');
         $playerStateMgr = \BX\Action\ActionRowMgrRegister::getMgr('player_state');
         if ($playerStateMgr->allPlayerPassed()) {
-            $this->incStat(1, STATS_TABLE_NB_ROUND);
-            $this->notifyAllPlayers(
-                NTF_UPDATE_ROUND,
-                '',
-                [
-                    'round' => $this->getStat(STATS_TABLE_NB_ROUND),
-                ]
-            );
-
             // All player are now 'not passed'
             $playerStateMgr->markAllPlayerNotPassedNow();
             foreach ($playerMgr->getAllPlayerIds() as $playerId) {
@@ -180,10 +196,13 @@ trait GameStatesTrait
                 return;
             }
 
+            $this->incStat(1, STATS_TABLE_NB_ROUND);
             $this->notifyAllPlayers(
-                \BX\Action\NTF_MESSAGE,
+                NTF_UPDATE_ROUND,
                 clienttranslate('A new round starts: buildings are reactivated, cards are shuffled and used magic tokens are flipped and shuffled'),
-                []
+                [
+                    'round' => $this->getStat(STATS_TABLE_NB_ROUND),
+                ]
             );
 
             // Shuffle cards, Reactivate buildings, Shuffle magic

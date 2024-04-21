@@ -513,10 +513,10 @@ define([
 
             getBlueIcons() {
                 return [
-                    ['human', _('Number of Human icons in play area'), _('Number of Human cards under the Solo Noble Board')],
-                    ['elf', _('Number of Elf icons in play area'), _('Number of Elf cards under the Solo Noble Board')],
-                    ['dwarf', _('Number of Dwarf icons in play area'), _('Number of Dwarf cards under the Solo Noble Board')],
-                    ['building', _('Number of Building icons in play area'), _('Number of Building cards under the Solo Noble Board')],
+                    ['human', _('Number of Human icons in play area'), _('Number of Human icons under the Solo Noble Board')],
+                    ['elf', _('Number of Elf icons in play area'), _('Number of Elf icons under the Solo Noble Board')],
+                    ['dwarf', _('Number of Dwarf icons in play area'), _('Number of Dwarf icons under the Solo Noble Board')],
+                    ['building', _('Number of Building icons in play area'), _('Number of Building icons under the Solo Noble Board')],
                     ['enemy', _('Number of Enemy defeated'), _('Number of Enemy destoyed by the Solo Noble')],
                 ];
             },

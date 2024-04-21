@@ -248,9 +248,9 @@ trait GameStatesTrait
             }
             if ($invalidCount) {
                 if (count($componentIds) == 0) {
-                    throw new \BgaUserException(self::_(clienttranslate('You must select more cards')));
+                    throw new \BgaUserException($this->_('You must select more cards'));
                 } else {
-                    throw new \BgaUserException(self::_(clienttranslate('You must select less cards')));
+                    throw new \BgaUserException($this->_('You must select less cards'));
                 }
             }
         } else {

@@ -29,6 +29,15 @@ define([
                     return;
                 }
                 args = args._private;
+                if (this.isTrue(args.canSkip)) {
+                    this.addTopButtonImportant(
+                        'button-skip',
+                        _('Skip (no cards in hand)'),
+                        () => this.serverAction('playerRoundChooseCardDevelopSkip')
+                    );
+                    return;
+                }
+
                 const clickableElements = [];
                 let choosenSide = null;
                 let choosenId = null;

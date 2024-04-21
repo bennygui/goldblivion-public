@@ -600,7 +600,7 @@ class PlayMainAction extends \BX\Action\BaseActionCommand
         $ps->modifyAction();
         $ps->actionCount += 1;
         if ($ps->actionCount > nbMainAction()) {
-            throw new \BgaUserException($notifier->translate(clienttranslate('You already played all your main actions')));
+            throw new \BgaUserException($notifier->_('You already played all your main actions'));
         }
 
         $msg = clienttranslate('${player_name} plays their first main action');
@@ -806,7 +806,7 @@ class BuyCard extends \BX\Action\BaseActionCommandNoUndo
             $componentMgr = self::getMgr('component');
             foreach ($componentMgr->getCardsInPlayerBuildingPlayArea($this->playerId) as $otherCard) {
                 if ($card->typeId == $otherCard->typeId) {
-                    throw new \BgaUserException($notifier->translate(clienttranslate('You cannot have the same building twice')));
+                    throw new \BgaUserException($notifier->_('You cannot have the same building twice'));
                 }
             }
         }
@@ -817,7 +817,7 @@ class BuyCard extends \BX\Action\BaseActionCommandNoUndo
         $nuggetPay = 0;
         $materialPay = 0;
         if (!$card->def()->payComponentCost($ps->nuggetCount, $ps->materialCount, $nuggetPay, $materialPay)) {
-            throw new \BgaUserException($notifier->translate(clienttranslate('You do not have enough to pay')));
+            throw new \BgaUserException($notifier->_('You do not have enough to pay'));
         }
         if ($nuggetPay != 0) {
             $notifier->notify(

@@ -66,6 +66,15 @@ class action_goldblivion extends APP_GameAction
     self::ajaxResponse();
   }
 
+  public function playerRoundChooseCardDevelopSkip()
+  {
+    self::setAjaxMode();
+
+    $this->game->playerRoundChooseCardDevelopSkip();
+
+    self::ajaxResponse();
+  }
+
   public function playerRoundChooseCardDevelopUndo()
   {
     self::setAjaxMode();
