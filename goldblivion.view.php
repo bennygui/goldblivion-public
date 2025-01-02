@@ -42,27 +42,27 @@ class view_goldblivion_goldblivion extends game_view
         "PLAYER_ID" => $playerId,
         "PLAYER_NAME" => $playerInfo['player_name'],
         "PLAYER_COLOR" => $playerInfo['player_color'],
-        "RED_FIGHTER" => $this->_('Fighters'),
-        "RED_EXHAUSTED" => $this->_('Exausted Fighters'),
-        "ENEMY" => $this->_('Enemy'),
-        "COMPACT" => $this->_('Compact'),
+        "RED_FIGHTER" => self::_('Fighters'),
+        "RED_EXHAUSTED" => self::_('Exausted Fighters'),
+        "ENEMY" => self::_('Enemy'),
+        "COMPACT" => self::_('Compact'),
       ]
     );
   }
 
   public function build_page($viewArgs)
   {
-    $this->tpl['DISPLAY_LAST_ROUND'] = $this->_('This is the last round!');
-    $this->tpl['NO_CARDS_IN_HAND'] = $this->_('You have no cards in hand');
-    $this->tpl['DISCARDED_CARDS'] = $this->_('Destroyed cards');
-    $this->tpl['LIST_INITIAL_BLUE_CARDS'] = $this->_('List of initial GOLDblivion player deck');
-    $this->tpl['LIST_INITIAL_RED_CARDS'] = $this->_('List of initial Combat player deck');
-    $this->tpl['LIST_DECK_BLUE_CARDS'] = $this->_('List of GOLDblivion cards in the deck at the start of the game');
-    $this->tpl['LIST_DECK_RED_CARDS'] = $this->_('List of Combat cards in the decks at the start of the game');
-    $this->tpl['LIST_MAGIC'] = $this->_('List of all Magic tokens');
-    $this->tpl['LIST_ENEMY'] = $this->_('List of all Enemy tiles');
-    $this->tpl['LIST_VILLAGE'] = $this->_('Two sides of the Village tiles');
-    $this->tpl['LIST_DICE_FACE'] = $this->_('List of dice faces');
+    $this->tpl['DISPLAY_LAST_ROUND'] = self::_('This is the last round!');
+    $this->tpl['NO_CARDS_IN_HAND'] = self::_('You have no cards in hand');
+    $this->tpl['DISCARDED_CARDS'] = self::_('Destroyed cards');
+    $this->tpl['LIST_INITIAL_BLUE_CARDS'] = self::_('List of initial GOLDblivion player deck');
+    $this->tpl['LIST_INITIAL_RED_CARDS'] = self::_('List of initial Combat player deck');
+    $this->tpl['LIST_DECK_BLUE_CARDS'] = self::_('List of GOLDblivion cards in the deck at the start of the game');
+    $this->tpl['LIST_DECK_RED_CARDS'] = self::_('List of Combat cards in the decks at the start of the game');
+    $this->tpl['LIST_MAGIC'] = self::_('List of all Magic tokens');
+    $this->tpl['LIST_ENEMY'] = self::_('List of all Enemy tiles');
+    $this->tpl['LIST_VILLAGE'] = self::_('Two sides of the Village tiles');
+    $this->tpl['LIST_DICE_FACE'] = self::_('List of dice faces');
 
     $currentPlayerId = $this->game->currentPlayerId();
     $playersInfos = $this->game->loadPlayersBasicInfos();
